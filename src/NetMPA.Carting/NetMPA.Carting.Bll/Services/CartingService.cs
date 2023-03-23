@@ -12,18 +12,20 @@ namespace NetMPA.Carting.Bll.Services
 {
     public class CartingService : ICartingService
     {
-        private readonly ICartRepository cartRepository;   
+        private readonly ICartRepository cartRepository;
+        private readonly IItemRepository itemRepository;
 
-        public CartingService(ICartRepository cartRepository)
+        public CartingService(ICartRepository cartRepository, IItemRepository itemRepository)
         {
             this.cartRepository = cartRepository;
+            this.itemRepository = itemRepository;
         }   
 
         public async Task<IEnumerable<Item>> GetCardItemsAsync(Guid cardId)
         {
-            var cartDao = await cartRepository.GetAsync(cardId);
-            //todo need to conver Dao to Bll model
-            return new List<Item>() { };
+            var items = await itemRepository.GetByCartIdAsync(cardId);
+            return items.Select(item=> new Item() { Id = item.Id, Name = item.Name, Image = item.Image, Price = item.Price, Quantity = item.Quantity});
+
         }
         
         public async Task<bool> AddItemToCardAsync(Guid cardId, Item item)
