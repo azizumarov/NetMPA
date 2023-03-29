@@ -21,49 +21,42 @@ namespace NetMPA.Carting.Bll.Services
             this.itemRepository = itemRepository;
         }   
 
-        public async Task<IEnumerable<Item>> GetCardItemsAsync(Guid cardId)
+        public async Task<IEnumerable<Item>> GetCartItems(Guid cardId)
         {
-            var items = await itemRepository.GetByCartIdAsync(cardId);
+            var items = await itemRepository.GetByCartId(cardId);
             return items.Select(item=> new Item() { Id = item.Id, Name = item.Name, Image = item.Image, Price = item.Price, Quantity = item.Quantity});
 
         }
         
-        public async Task<bool> AddItemToCardAsync(Guid cardId, Item item)
+        public async Task AddItemToCart(Guid cardId, Item item)
         {
-            if (item == null) throw new ArgumentNullException("Item");
+            if (item == null) throw new ArgumentNullException(nameof(item));
+
             if (item.Id < 1) throw new ArgumentException("Id is Required");
             if (string.IsNullOrEmpty(item.Name)) throw new ArgumentException("Name is Required");
 
-            try
-            {
-                var cartDao = await cartRepository.GetAsync(cardId);
-                var itemDao = new ItemDao() { Id = item.Id, Name = item.Name, Image = item.Image, Price = item.Price, Quantity = item.Quantity };
-                cartDao.AddItem(itemDao);
+            var cartDao = await cartRepository.Get(cardId);
 
-                await cartRepository.UpdateAsync(cartDao);
-                return true;
-            }
-            catch 
+            if (cartDao == null)
             {
-                return false;
+                await cartRepository.Add(new CartDao() {Id = cardId });
+                cartDao = await cartRepository.Get(cardId);
             }
+
+            var itemDao = new ItemDao() { Id = item.Id, Name = item.Name, Image = item.Image, Price = item.Price, Quantity = item.Quantity };
+            cartDao.AddItem(itemDao);
+
+            await cartRepository.Update(cartDao);            
         }
 
-        public async Task<bool> RemoveItemFromCardAsync(Guid cardId, int itemId)
+        public async Task RemoveItemFromCart(Guid cardId, int itemId)
         {
-            var cartDao = await cartRepository.GetAsync(cardId);
+            var cartDao = await cartRepository.Get(cardId);
 
-            try
-            {
-                cartDao.DeleteItem(itemId);
-                await cartRepository.UpdateAsync(cartDao);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-            
+            if (cartDao == null) throw new ApplicationException($"Cart {cardId} not found");
+
+            cartDao.DeleteItem(itemId);
+            await cartRepository.Update(cartDao);            
         }
 
     }

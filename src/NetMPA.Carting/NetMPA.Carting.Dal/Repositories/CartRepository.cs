@@ -8,26 +8,33 @@ using System.Threading.Tasks;
 
 namespace NetMPA.Carting.Dal.Repositories
 {
-    internal class CartRepository : ICartRepository
+    public class CartRepository : ICartRepository
     {
-        public Task<CartDao> AddAsync(CartDao cartDao)
+        private IDictionary<Guid, CartDao> cartDB;
+
+        public CartRepository(IDictionary<Guid, CartDao> cartDB)
         {
-            throw new NotImplementedException();
+            this.cartDB = cartDB;
         }
 
-        public Task<IEnumerable<CartDao>> GetAllAsync()
+        public Task Add(CartDao cartDao)
         {
-            throw new NotImplementedException();
+            return new Task(() => cartDB.Add(cartDao.Id, cartDao));
         }
 
-        public Task<CartDao> GetAsync(Guid id)
+        public Task<IEnumerable<CartDao>> GetAll()
         {
-            throw new NotImplementedException();
+            return new Task<IEnumerable<CartDao>>(() => cartDB.Values);
         }
 
-        public Task UpdateAsync(CartDao cartDao)
+        public Task<CartDao> Get(Guid id)
         {
-            throw new NotImplementedException();
+            return new Task<CartDao>(() => cartDB[id]);
+        }
+
+        public Task Update(CartDao cartDao)
+        {
+            return new Task(() => cartDB[cartDao.Id] = cartDao);
         }
     }
 }

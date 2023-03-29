@@ -10,29 +10,38 @@ namespace NetMPA.Carting.Dal.Repositories
 {
     public class ItemRepository : IItemRepository
     {
-        public Task<ItemDao> AddAsync(CartDao cartDao)
+        private IDictionary<Guid, CartDao> cartDB;
+        private IDictionary<int, ItemDao> itemDB;
+
+        public ItemRepository(IDictionary<Guid, CartDao> cartDB, IDictionary<int, ItemDao> itemDB)
         {
-            throw new NotImplementedException();
+            this.itemDB = itemDB;
+            this.cartDB = cartDB;
+        }        
+
+        public Task Add(ItemDao itemDao)
+        {
+            return new Task(() => itemDB.Add(itemDao.Id, itemDao));
         }
 
-        public Task<IEnumerable<ItemDao>> GetAllAsync()
+        public Task<IEnumerable<ItemDao>> GetAll()
         {
-            throw new NotImplementedException();
+            return new Task<IEnumerable<ItemDao>>(() => itemDB.Values);
         }
 
-        public Task<ItemDao> GetAsync(int id)
+        public Task<ItemDao> Get(int id)
         {
-            throw new NotImplementedException();
+            return new Task<ItemDao>(() => itemDB[id]);
         }
 
-        public Task<IEnumerable<ItemDao>> GetByCartIdAsync(Guid id)
+        public Task<IEnumerable<ItemDao>> GetByCartId(Guid id)
         {
-            throw new NotImplementedException();
+            return new Task<IEnumerable<ItemDao>>(() => cartDB[id].Items);
         }
 
-        public Task UpdateAsync(ItemDao cartDao)
+        public Task Update(ItemDao itemDao)
         {
-            throw new NotImplementedException();
+            return new Task(() => itemDB[itemDao.Id] = itemDao);
         }
     }
 }

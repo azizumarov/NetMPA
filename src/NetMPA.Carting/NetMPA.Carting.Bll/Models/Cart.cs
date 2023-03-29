@@ -12,11 +12,6 @@ namespace NetMPA.Carting.Bll.Models
 {
     public class Cart
     {
-        private Guid id;
-        private IEnumerable<Item> items;
-
-        public Guid Id { get { return id; } }
-        public IEnumerable<Item> Items { get { return items; } }
-
+        public Guid Id { get; set; } 
     }
 }

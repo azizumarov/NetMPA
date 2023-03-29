@@ -9,11 +9,11 @@ namespace NetMPA.Carting.Dal.Interfaces
 {
     public interface IItemRepository
     {
-        Task<ItemDao> GetAsync(int id);
+        Task<ItemDao> Get(int id);
 
-        Task<IEnumerable<ItemDao>> GetByCartIdAsync(Guid id);
-        Task<IEnumerable<ItemDao>> GetAllAsync();
-        Task<ItemDao> AddAsync(CartDao cartDao);
-        Task UpdateAsync(ItemDao cartDao);
+        Task<IEnumerable<ItemDao>> GetByCartId(Guid id);
+        Task<IEnumerable<ItemDao>> GetAll();
+        Task Add(ItemDao itemDao);
+        Task Update(ItemDao itemDao);
     }
 }

@@ -9,9 +9,9 @@ namespace NetMPA.Carting.Dal.Interfaces
 {
     public interface ICartRepository
     {
-        Task<CartDao> GetAsync(Guid id);
-        Task<IEnumerable<CartDao>> GetAllAsync();
-        Task<CartDao> AddAsync(CartDao cartDao);
-        Task UpdateAsync(CartDao cartDao);
+        Task<CartDao> Get(Guid id);
+        Task<IEnumerable<CartDao>> GetAll();
+        Task Add(CartDao cartDao);
+        Task Update(CartDao cartDao);
     }
 }

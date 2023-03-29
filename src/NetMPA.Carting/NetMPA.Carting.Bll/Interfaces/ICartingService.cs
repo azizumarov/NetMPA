@@ -9,8 +9,8 @@ namespace NetMPA.Carting.Bll.Interfaces
 {
     public interface ICartingService
     {
-        Task<IEnumerable<Item>> GetCardItemsAsync(Guid cardId);
-        Task<bool> AddItemToCardAsync(Guid cardId, Item item);
-        Task<bool> RemoveItemFromCardAsync(Guid cardId, int itemId);
+        Task<IEnumerable<Item>> GetCartItems(Guid cardId);
+        Task AddItemToCart(Guid cardId, Item item);
+        Task RemoveItemFromCart(Guid cardId, int itemId);
     }
 }

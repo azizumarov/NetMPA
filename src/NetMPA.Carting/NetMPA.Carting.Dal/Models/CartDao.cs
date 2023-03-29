@@ -8,10 +8,9 @@ namespace NetMPA.Carting.Dal.Models
 {
     public class CartDao
     {
-        private Guid id;
         private IList<ItemDao> items;
 
-        public Guid Id { get { return id; } }
+        public Guid Id { get; set; }
         public IEnumerable<ItemDao> Items { get { return items; } }
 
         public void AddItem(ItemDao itemDao) 
