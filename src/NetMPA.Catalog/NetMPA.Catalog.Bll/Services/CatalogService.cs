@@ -1,5 +1,6 @@
 ﻿using NetMPA.Catalog.Bll.Interfaces.Repositories;
 using NetMPA.Catalog.Bll.Interfaces.Services;
+using NetMPA.Catalog.Bll.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,19 @@ namespace NetMPA.Catalog.Bll.Services
             this.categoryRepository = categoryRepository;
         }
 
+        public Task<IEnumerable<Category>> GetAllCategories()
+        {
+            return this.categoryRepository.GetAll();
+        }
+
+        public Task<IEnumerable<Product>> GetAllProducts()
+        {
+            return this.productRepository.GetAll();
+        }
+
+        public Task<Product> GetProductById(int productId)
+        {
+            return this.productRepository.Get(productId);
+        }
     }
 }

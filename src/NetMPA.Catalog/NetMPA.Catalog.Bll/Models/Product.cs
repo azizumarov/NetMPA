@@ -8,12 +8,12 @@ namespace NetMPA.Catalog.Bll.Models
 {
     public class Product
     {
-        public Guid Id { get; init; }
-        public string Name { get; init; }
-        public string Description { get; init; }
-        public Uri Image { get; init; }
-        public Category Category { get; init; }
-        public decimal Price { get; init; }
-        public int Amount { get; init; }
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public Uri? Image { get; set; }
+        public Category? Category { get; set; }
+        public decimal Price { get; set; }
+        public int Amount { get; set; }
     }
 }

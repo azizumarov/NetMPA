@@ -9,10 +9,10 @@ namespace NetMPA.Catalog.Bll.Interfaces.Repositories
 {
     public interface ICategoryRepository
     {
-        Task<Category> GetAsync(Guid id);
-        Task<IEnumerable<Category>> GetAllAsync();
-        Task AddAsync(Category category);
-        Task UpdateAsync(Category category);
-        Task DeleteAsync(Guid id);
+        Task<Category> Get(int id);
+        Task<IEnumerable<Category>> GetAll();
+        Task Add(Category category);
+        Task Update(Category category);
+        Task Delete(int id);
     }
 }

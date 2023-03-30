@@ -20,29 +20,37 @@ namespace NetMPA.Catalog.Dal.Repositories
             this.dbFactory = dbFactory;
         }
 
-        public Task AddAsync(Category category)
+        public async Task Add(Category category)
         {
-            throw new NotImplementedException();
+            await dbFactory.CreateContext().Categories.AddAsync(category);
+            
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            await dbFactory.CreateContext().Categories.Where(category => category.Id == id).ExecuteDeleteAsync();
         }
 
-        public async Task<IEnumerable<Category>> GetAllAsync()
+        public async Task<IEnumerable<Category>> GetAll()
         {
             return await dbFactory.CreateContext().Categories.ToListAsync();
         }
 
-        public Task<Category> GetAsync(Guid id)
+        public async Task<Category> Get(int id)
         {
-            throw new NotImplementedException();
+            return await dbFactory.CreateContext().Categories.Where(category => category.Id == id).FirstAsync();
         }
 
-        public Task UpdateAsync(Category category)
+        public async Task Update(Category category)
         {
-            throw new NotImplementedException();
+            var old = await dbFactory.CreateContext().Categories.Where(cat => cat.Id == category.Id).SingleAsync();
+            if (old == null) throw new ApplicationException("Category not found");
+
+            old.Name = category.Name;
+            old.Parent = category.Parent;
+            old.Image = category.Image;
+
+            await dbFactory.CreateContext().SaveChangesAsync();
         }
     }
 }

@@ -8,9 +8,9 @@ namespace NetMPA.Catalog.Bll.Models
 {
     public class Category
     {
-        public Guid Id { get; init; }
-        public string Name { get; init; }
-        public Uri Image { get; init; }
-        public Category Parent { get; init; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Uri Image { get; set; }
+        public Category Parent { get; set; }
     }
 }
