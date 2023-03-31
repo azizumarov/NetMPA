@@ -19,22 +19,22 @@ namespace NetMPA.Carting.Dal.Repositories
 
         public Task Add(CartDao cartDao)
         {
-            return new Task(() => cartDB.Add(cartDao.Id, cartDao));
+            return Task.Run(() => cartDB.Add(cartDao.Id, cartDao));
         }
 
         public Task<IEnumerable<CartDao>> GetAll()
         {
-            return new Task<IEnumerable<CartDao>>(() => cartDB.Values);
+            return Task.Run<IEnumerable<CartDao>>(() => cartDB.Values);
         }
 
         public Task<CartDao> Get(Guid id)
         {
-            return new Task<CartDao>(() => cartDB[id]);
+            return Task.Run<CartDao>(() => cartDB[id]);
         }
 
         public Task Update(CartDao cartDao)
         {
-            return new Task(() => cartDB[cartDao.Id] = cartDao);
+            return Task.Run(() => cartDB[cartDao.Id] = cartDao);
         }
     }
 }
