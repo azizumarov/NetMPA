@@ -4,7 +4,7 @@ using NetMPA.Carting.Dal.Repositories;
 
 namespace NetMPA.Carting.Dal.Tests
 {
-    public class Tests
+    public class CartRepositoryTests
     {
         [SetUp]
         public void Setup()
@@ -26,7 +26,8 @@ namespace NetMPA.Carting.Dal.Tests
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOf(typeof(CartDao), result);
-            Assert.Equals(cartDao.Id, result.Id);
+
+            Assert.AreEqual(cartDao.Id, result.Id);
         }
     }
 }

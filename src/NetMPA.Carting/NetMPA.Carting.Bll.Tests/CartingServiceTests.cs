@@ -48,7 +48,7 @@ namespace NetMPA.Carting.Bll.Tests
             //Arrange
 
             //Act
-            var ex = Assert.Throws<ArgumentNullException>( () => this.cartingService.AddItemToCart(Guid.NewGuid(), null));
+            var ex = Assert.ThrowsAsync<ArgumentNullException>( async () => await cartingService.AddItemToCart(Guid.NewGuid(), null));
             //Assert
             Assert.AreEqual("Value cannot be null. (Parameter 'item')", ex.Message);
         }
@@ -59,7 +59,7 @@ namespace NetMPA.Carting.Bll.Tests
             //Arrange
 
             //Act
-            var ex = Assert.Throws<ArgumentException>(() => this.cartingService.AddItemToCart(Guid.NewGuid(), new Item() { Id = 0}));
+            var ex = Assert.ThrowsAsync<ArgumentException>(async () => await cartingService.AddItemToCart(Guid.NewGuid(), new Item() { Id = 0}));
             //Assert
             Assert.AreEqual("Id is Required", ex.Message);
         }
@@ -70,7 +70,7 @@ namespace NetMPA.Carting.Bll.Tests
             //Arrange
 
             //Act
-            var ex = Assert.Throws<ArgumentException>(() => this.cartingService.AddItemToCart(Guid.NewGuid(), new Item() { Id = 1 }));
+            var ex = Assert.ThrowsAsync<ArgumentException>(async () => await this.cartingService.AddItemToCart(Guid.NewGuid(), new Item() { Id = 1 }));
             //Assert
             Assert.AreEqual("Name is Required", ex.Message);
         }
@@ -84,7 +84,7 @@ namespace NetMPA.Carting.Bll.Tests
 
             cartRepository
                 .Setup(x => x.Get(It.IsAny<Guid>()))
-                .Returns(() => null);
+                .ReturnsAsync(() => null);
 
             var itemRepository = new Mock<IItemRepository>();
 
@@ -92,7 +92,7 @@ namespace NetMPA.Carting.Bll.Tests
             var guid = Guid.NewGuid();
             //Act
 
-            var ex = Assert.Throws<ApplicationException>(() => cartingService.RemoveItemFromCart(guid, 1));
+            var ex = Assert.ThrowsAsync<ApplicationException>(async () => await cartingService.RemoveItemFromCart(guid, 1));
             //Assert
             Assert.AreEqual($"Cart {guid} not found", ex.Message); 
 
