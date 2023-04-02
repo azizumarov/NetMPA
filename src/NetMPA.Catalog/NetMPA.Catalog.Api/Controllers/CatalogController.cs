@@ -4,6 +4,9 @@ using NetMPA.Catalog.Api.Models;
 
 namespace NetMPA.Catalog.Api.Controllers
 {
+    /// <summary>
+    /// Catalog API
+    /// </summary>
     [ApiVersion("1.0")]
     [ApiVersion("2.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -31,15 +34,15 @@ namespace NetMPA.Catalog.Api.Controllers
         }
 
         /// <summary>
-        /// List of products
+        /// Category by Id
         /// </summary>
         [MapToApiVersion("1.0")]
         [HttpGet()]
-        [Route("product")]
+        [Route("category/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<string> GetCategoryById(int id)
         {
-            return new List<Product>() { new Product() };
+            return new List<string>() { "asdasd", "123123" };
         }
 
         /// <summary>
@@ -56,16 +59,32 @@ namespace NetMPA.Catalog.Api.Controllers
         }
 
         /// <summary>
-        /// Category by Id
+        /// Update Category
         /// </summary>
         [MapToApiVersion("1.0")]
-        [HttpGet()]
+        [HttpPut]
         [Route("category/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public IEnumerable<string> GetCategoryById(int id)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public Category UpdateCategory([FromRoute] int categoryId, [FromBody] CategoryAdd category)
         {
-            return new List<string>() { "asdasd", "123123" };
+            return new Category();
         }
+
+        /// <summary>
+        /// Update Category
+        /// </summary>
+        [MapToApiVersion("1.0")]
+        [HttpDelete]
+        [Route("category/{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public Category DeleteCategory([FromRoute] int categoryId)
+        {
+            return new Category();
+        }
+
+        
 
         [MapToApiVersion("2.0")]
         [HttpGet()]
@@ -76,6 +95,17 @@ namespace NetMPA.Catalog.Api.Controllers
             return new List<string>() { "asdasd", "123123" };
         }
 
+        /// <summary>
+        /// List of products
+        /// </summary>
+        [MapToApiVersion("1.0")]
+        [HttpGet()]
+        [Route("product")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IEnumerable<Product> GetAllProducts()
+        {
+            return new List<Product>() { new Product() };
+        }
 
 
     }
