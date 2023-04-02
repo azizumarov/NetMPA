@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetMPA.Catalog.Bll.Tests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetMPA.Catalog.Dal.Tests", "NetMPA.Catalog\NetMPA.Catalog.Dal.Tests\NetMPA.Catalog.Dal.Tests.csproj", "{DDEEEF39-7439-438B-B0E5-2C0D9B73620B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetMPA.Catalog.Api", "NetMPA.Catalog\NetMPA.Catalog.Api\NetMPA.Catalog.Api.csproj", "{4487AE44-2D54-473C-886F-AF5260C79C9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{DDEEEF39-7439-438B-B0E5-2C0D9B73620B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDEEEF39-7439-438B-B0E5-2C0D9B73620B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDEEEF39-7439-438B-B0E5-2C0D9B73620B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4487AE44-2D54-473C-886F-AF5260C79C9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4487AE44-2D54-473C-886F-AF5260C79C9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4487AE44-2D54-473C-886F-AF5260C79C9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4487AE44-2D54-473C-886F-AF5260C79C9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +86,7 @@ Global
 		{F979989F-DADC-47F8-B933-E0F3D19FE26A} = {829CB6B9-0849-42B0-A8F8-BE4A784ECB1E}
 		{D76D66FB-43D3-4FFE-AF3C-3C23611B4815} = {5DB88ECA-ABB5-46E4-BF72-CFFF690202FE}
 		{DDEEEF39-7439-438B-B0E5-2C0D9B73620B} = {5DB88ECA-ABB5-46E4-BF72-CFFF690202FE}
+		{4487AE44-2D54-473C-886F-AF5260C79C9E} = {3CED91F8-4473-4B48-9195-D07D7779EF53}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {25062E94-7909-4AB1-ABD3-B621AC3115CD}
