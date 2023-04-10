@@ -2,9 +2,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using NetMPA.Catalog.Api.Controllers.Mappers;
+using NetMPA.Catalog.Bll.Configuration;
 using NetMPA.Catalog.Dal.Configuration;
+using NetMPA.Catalog.Dal.SqlContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +44,7 @@ builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
 var configuration = builder.Configuration;
 
+builder.Services.ConfigureBll();
 builder.Services.ConfigureDal(configuration);
 
 var config = new MapperConfiguration(cfg =>
@@ -78,5 +83,9 @@ app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+using var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope();
+using var context = serviceScope.ServiceProvider.GetRequiredService<CatalogContext>();
+
 
 app.Run();
