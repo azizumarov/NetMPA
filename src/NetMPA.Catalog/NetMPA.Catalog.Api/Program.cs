@@ -1,7 +1,10 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
-
+using Microsoft.Extensions.DependencyInjection;
+using NetMPA.Catalog.Api.Controllers.Mappers;
+using NetMPA.Catalog.Dal.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +37,19 @@ builder.Services.AddVersionedApiExplorer(
 builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
+
+var configuration = builder.Configuration;
+
+builder.Services.ConfigureDal(configuration);
+
+var config = new MapperConfiguration(cfg =>
+{
+    CatalogMapperConfiguration.ConfigureMappings(cfg);
+});
+
+config.AssertConfigurationIsValid();
+var mapper = config.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 

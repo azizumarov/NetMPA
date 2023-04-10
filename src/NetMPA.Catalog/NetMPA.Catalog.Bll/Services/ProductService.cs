@@ -21,16 +21,24 @@ namespace NetMPA.Catalog.Bll.Services
 
         public Task Add(Product product)
         {
+            if (product == null) throw new ArgumentNullException();
+            if (string.IsNullOrEmpty(product.Name)) throw new ArgumentException("Name is required");
+            if (product.Name.Length > 50) throw new ArgumentException("The Name value cannot exceed 50 characters.");
+
             return this.productRepository.Add(product);
         }
 
         public Task Delete(int productId)
         {
+            if (productId <= 0) throw new ArgumentException("Id is required");
+
             return this.productRepository.Delete(productId);
         }
 
         public Task<Product> Get(int productId)
         {
+            if (productId <= 0) throw new ArgumentException("Id is required");
+
             return this.productRepository.Get(productId);
         }
 
@@ -41,6 +49,11 @@ namespace NetMPA.Catalog.Bll.Services
 
         public Task Update(Product product)
         {
+            if (product == null) throw new ArgumentNullException();
+            if (product.Id <= 0) throw new ArgumentException("Id is required");
+            if (string.IsNullOrEmpty(product.Name)) throw new ArgumentException("Name is required");
+            if (product.Name.Length > 50) throw new ArgumentException("The Name value cannot exceed 50 characters.");
+
             return this.productRepository.Update(product);
         }
     }
