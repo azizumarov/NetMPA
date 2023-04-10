@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetMPA.Catalog.Api.Controllers.Requests;
 using NetMPA.Catalog.Api.Models;
 using NetMPA.Catalog.Bll.Interfaces.Services;
 //using NetMPA.Catalog.Bll.Models;
@@ -36,11 +37,11 @@ namespace NetMPA.Catalog.Api.Controllers
         [Route("category")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<Category>>> GetAllCategories()
+        public async Task<ActionResult<IEnumerable<Category>>> GetAllCategories([FromQuery] PagedRequest pagedRequest)
         {
             var result = await this.categoryService.List();
             if (result == null) return NotFound();
-            return Ok(result.Select(this.mapper.Map<Category>));
+            return Ok(result.Take(pagedRequest.Take).Skip(pagedRequest.Skip).Select(this.mapper.Map<Category>));
         }
 
         /// <summary>
