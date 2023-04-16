@@ -43,7 +43,7 @@ namespace NetMPA.Catalog.Bll.Services
             return this.productRepository.Get(productId);
         }
 
-        public Task<IEnumerable<Product>> List(PagingParameters pagingParameters)
+        public Task<IEnumerable<Product>> List(PagingProductsParameters pagingParameters)
         {
             return this.productRepository.GetAll(pagingParameters);
         }

@@ -33,7 +33,7 @@ namespace NetMPA.Catalog.Dal.Tests.Repositories
             await this.catalogContext.SaveChangesAsync();
 
             //Act
-            var result = await productRepository.GetAll(new PagingParameters(0, 10));
+            var result = await productRepository.GetAll(new PagingProductsParameters(null, 0, 10));
 
             //Assert
             Assert.IsNotNull(result);

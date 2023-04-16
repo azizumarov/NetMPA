@@ -11,7 +11,7 @@ namespace NetMPA.Catalog.Bll.Interfaces.Repositories
     public interface IProductRepository
     {
         Task<Product> Get(int id);
-        Task<IEnumerable<Product>> GetAll(PagingParameters pagingParameters);
+        Task<IEnumerable<Product>> GetAll(PagingProductsParameters pagingParameters);
         Task Add(Product product);
         Task Update(Product product);
         Task Delete(int id);

@@ -36,8 +36,7 @@ namespace NetMPA.Catalog.Api.Controllers
         /// </summary>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts([FromQuery] PagedRequest pagedRequest)
+        public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts([FromQuery] PagedProducsRequest pagedRequest)
         {
             if (pagedRequest.IsValid())
             {
@@ -45,8 +44,7 @@ namespace NetMPA.Catalog.Api.Controllers
                 pagedRequest.PageSize = pagedRequest.PageSize ?? 25;
             }
 
-            var result = await this.productService.List(mapper.Map<PagingParameters>(pagedRequest));
-            if (result == null) return NotFound();
+            var result = await this.productService.List(mapper.Map<PagingProductsParameters>(pagedRequest));
             return Ok(result.Select(this.mapper.Map<Product>));
         }
 

@@ -11,7 +11,7 @@ namespace NetMPA.Catalog.Bll.Interfaces.Services
     public interface IProductService
     {
         Task<Product> Get(int productId);
-        Task<IEnumerable<Product>> List(PagingParameters pagingParameters);
+        Task<IEnumerable<Product>> List(PagingProductsParameters pagingParameters);
 
         Task Add(Product product);
 

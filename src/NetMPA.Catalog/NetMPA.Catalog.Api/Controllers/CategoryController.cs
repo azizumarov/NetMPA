@@ -36,7 +36,6 @@ namespace NetMPA.Catalog.Api.Controllers
         /// </summary>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Category>>> GetAllCategories([FromQuery] PagedRequest pagedRequest)
         {
             if (pagedRequest.IsValid())
@@ -46,7 +45,7 @@ namespace NetMPA.Catalog.Api.Controllers
             }
 
             var result = await this.categoryService.List(mapper.Map<PagingParameters>(pagedRequest));
-            if (result == null) return NotFound();
+            
             return Ok(result.Select(this.mapper.Map<Category>));
         }
 

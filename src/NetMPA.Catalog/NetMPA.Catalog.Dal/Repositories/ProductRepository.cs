@@ -34,9 +34,9 @@ namespace NetMPA.Catalog.Dal.Repositories
             await dbFactory.CreateContext().SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetAll(PagingParameters pagingParameters)
+        public async Task<IEnumerable<Product>> GetAll(PagingProductsParameters pagingParameters)
         {
-            return await dbFactory.CreateContext().Products.Skip(pagingParameters.PageIndex*pagingParameters.PageSize).Take(pagingParameters.PageSize).ToListAsync();
+            return await dbFactory.CreateContext().Products.Where(p=> pagingParameters.CategoryId == null || p.Category.Id == pagingParameters.CategoryId).Skip(pagingParameters.PageIndex*pagingParameters.PageSize).Take(pagingParameters.PageSize).ToListAsync();
         }
 
         public async Task<Product> Get(int id)
