@@ -15,6 +15,7 @@ namespace NetMPA.Catalog.Dal.Configuration
         {
             builder.HasKey(product => product.Id);
 
+            builder.Property(product => product.Id);
             builder.Property(product => product.Name).IsRequired();
             builder.Property(product => product.Image);
             builder.Property(product => product.Price);

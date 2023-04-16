@@ -1,6 +1,7 @@
 ﻿using NetMPA.Catalog.Bll.Interfaces.Repositories;
 using NetMPA.Catalog.Bll.Interfaces.Services;
 using NetMPA.Catalog.Bll.Models;
+using NetMPA.Catalog.Bll.Models.RequestParams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,9 +43,9 @@ namespace NetMPA.Catalog.Bll.Services
             return this.productRepository.Get(productId);
         }
 
-        public Task<IEnumerable<Product>> List()
+        public Task<IEnumerable<Product>> List(PagingParameters pagingParameters)
         {
-            return this.productRepository.GetAll();
+            return this.productRepository.GetAll(pagingParameters);
         }
 
         public Task Update(Product product)

@@ -4,6 +4,7 @@ using Moq;
 using NetMPA.Catalog.Bll.Interfaces.Repositories;
 using NetMPA.Catalog.Bll.Interfaces.Services;
 using NetMPA.Catalog.Bll.Models;
+using NetMPA.Catalog.Bll.Models.RequestParams;
 using NetMPA.Catalog.Bll.Services;
 using NetMPA.Catalog.Dal.Repositories;
 using NetMPA.Catalog.Dal.SqlContext;
@@ -38,7 +39,7 @@ namespace NetMPA.Catalog.Dal.Tests.Repositories
             await this.catalogContext.SaveChangesAsync();
 
             //Act
-            var result = await categoryRepository.GetAll();
+            var result = await categoryRepository.GetAll(new PagingParameters(0, 10));
 
             //Assert
             Assert.IsNotNull(result);

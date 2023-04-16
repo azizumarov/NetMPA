@@ -1,4 +1,5 @@
 ﻿using NetMPA.Catalog.Bll.Models;
+using NetMPA.Catalog.Bll.Models.RequestParams;
 using NetMPA.Catalog.Dal.Repositories;
 using NetMPA.Catalog.Dal.SqlContext;
 using NetMPA.Catalog.Dal.Tests.Common;
@@ -32,7 +33,7 @@ namespace NetMPA.Catalog.Dal.Tests.Repositories
             await this.catalogContext.SaveChangesAsync();
 
             //Act
-            var result = await productRepository.GetAll();
+            var result = await productRepository.GetAll(new PagingParameters(0, 10));
 
             //Assert
             Assert.IsNotNull(result);

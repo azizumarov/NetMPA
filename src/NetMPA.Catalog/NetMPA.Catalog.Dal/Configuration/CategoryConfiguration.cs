@@ -13,11 +13,12 @@ namespace NetMPA.Catalog.Dal.Configuration
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
+            builder.ToTable("Categories");
             builder.HasKey(category => category.Id);
 
-            builder.Property(category => category.Name).IsRequired();
+            builder.Property(category => category.Id);
+            builder.Property(category => category.Name).IsRequired().HasMaxLength(50);
             builder.Property(category => category.Image);
-
             
         }
     }

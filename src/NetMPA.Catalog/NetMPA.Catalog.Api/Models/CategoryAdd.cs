@@ -3,7 +3,7 @@
 namespace NetMPA.Catalog.Api.Models
 {
     /// <summary>
-    /// Category 
+    /// Category model for add
     /// </summary>
     public class CategoryAdd
     {

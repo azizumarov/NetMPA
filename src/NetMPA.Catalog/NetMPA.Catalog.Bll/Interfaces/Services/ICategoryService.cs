@@ -1,4 +1,5 @@
 ﻿using NetMPA.Catalog.Bll.Models;
+using NetMPA.Catalog.Bll.Models.RequestParams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace NetMPA.Catalog.Bll.Interfaces.Services
     public interface ICategoryService
     {
         Task<Category> Get(int categoryId);
-        Task<IEnumerable<Category>> List();
+        Task<IEnumerable<Category>> List(PagingParameters pagingParameters);
 
         Task Add(Category category);
 

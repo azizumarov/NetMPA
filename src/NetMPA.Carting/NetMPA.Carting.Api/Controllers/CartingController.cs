@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetMPA.Carting.Api.Models;
 using NetMPA.Carting.Bll.Interfaces;
-using NetMPA.Carting.Bll.Models;
 using System.Collections;
 
 namespace NetMPA.Carting.Api.Controllers
@@ -15,11 +16,13 @@ namespace NetMPA.Carting.Api.Controllers
     {
         private readonly ILogger<CartingController> logger;
         private readonly ICartingService cartingService;
+        private readonly IMapper mapper;
 
-        public CartingController(ICartingService cartingService, ILogger<CartingController> logger)
+        public CartingController(ICartingService cartingService, ILogger<CartingController> logger, IMapper mapper)
         {
             this.logger = logger;
             this.cartingService = cartingService;
+            this.mapper = mapper;
         }
 
         /// <summary>
@@ -28,13 +31,12 @@ namespace NetMPA.Carting.Api.Controllers
         [HttpGet("{key}")]
         [MapToApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> GetCartInfo([FromRoute] Guid key)
+        public async Task<ActionResult<Cart>> GetCartInfo([FromRoute] Guid key)
         {
             var result = await this.cartingService.GetCartItems(key);
 
             if (result == null) return NotFound();
-            return Ok(new { cart_key = key, items = result });
+            return Ok(new Cart { Key = key, Items = result.Select(i => mapper.Map<Item>(i)) });
         }
 
 
@@ -44,7 +46,6 @@ namespace NetMPA.Carting.Api.Controllers
         [HttpGet("{key}")]
         [MapToApiVersion("2.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Item>>> GetCartInfoV2([FromRoute] Guid key)
         {
             var result = await this.cartingService.GetCartItems(key);
