@@ -14,5 +14,12 @@ namespace NetMPA.Carting.Api.Models
         public Uri Image { get; init; }
         public decimal Price { get; init; }
         public int Quantity { get; init; }
+
+        public bool isValid()
+        {
+            if (String.IsNullOrEmpty(Name)) throw new Exception("Name is required");
+
+            return true;
+        }
     }
 }

@@ -97,7 +97,7 @@ namespace NetMPA.Catalog.Api.Controllers
         /// </summary>        
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeleteCategory([FromRoute] int categoryId)
         {
             if (categoryId <= 0) return BadRequest();
