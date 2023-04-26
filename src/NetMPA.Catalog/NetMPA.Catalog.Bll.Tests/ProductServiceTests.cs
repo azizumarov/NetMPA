@@ -2,6 +2,7 @@
 using NetMPA.Catalog.Bll.Interfaces.Repositories;
 using NetMPA.Catalog.Bll.Interfaces.Services;
 using NetMPA.Catalog.Bll.Models;
+using NetMPA.Catalog.Bll.Models.RequestParams;
 using NetMPA.Catalog.Bll.Services;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace NetMPA.Catalog.Bll.Tests
         {
 
             var productRepository = new Mock<IProductRepository>();
-            productRepository.Setup(service => service.GetAll()).ReturnsAsync(new List<Product>() { new Product() { Id = 1 } });
+            productRepository.Setup(service => service.GetAll(new PagingProductsParameters(null, 0, 10))).ReturnsAsync(new List<Product>() { new Product() { Id = 1 } });
 
             productService = new ProductService(productRepository.Object);
         }
@@ -28,7 +29,7 @@ namespace NetMPA.Catalog.Bll.Tests
         [Test]
         public void ProductService_List()
         {
-            var result = productService.List();
+            var result = productService.List(new PagingProductsParameters(null, 0, 10));
 
             Assert.IsNotNull(result);
         }

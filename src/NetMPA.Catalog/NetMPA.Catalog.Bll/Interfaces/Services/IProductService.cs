@@ -1,4 +1,5 @@
 ﻿using NetMPA.Catalog.Bll.Models;
+using NetMPA.Catalog.Bll.Models.RequestParams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace NetMPA.Catalog.Bll.Interfaces.Services
     public interface IProductService
     {
         Task<Product> Get(int productId);
-        Task<IEnumerable<Product>> List();
+        Task<IEnumerable<Product>> List(PagingProductsParameters pagingParameters);
 
         Task Add(Product product);
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NetMPA.Catalog.Bll.Interfaces.Repositories;
 using NetMPA.Catalog.Bll.Models;
+using NetMPA.Catalog.Bll.Models.RequestParams;
 using NetMPA.Catalog.Dal.SqlContext;
 using System;
 using System.Collections.Generic;
@@ -24,17 +25,18 @@ namespace NetMPA.Catalog.Dal.Repositories
         public async Task Add(Product product)
         {
             await dbFactory.CreateContext().Products.AddAsync(product);
-
+            await dbFactory.CreateContext().SaveChangesAsync();
         }
 
         public async Task Delete(int id)
         {
             await dbFactory.CreateContext().Products.Where(Product => Product.Id == id).ExecuteDeleteAsync();
+            await dbFactory.CreateContext().SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetAll()
+        public async Task<IEnumerable<Product>> GetAll(PagingProductsParameters pagingParameters)
         {
-            return await dbFactory.CreateContext().Products.ToListAsync();
+            return await dbFactory.CreateContext().Products.Where(p=> pagingParameters.CategoryId == null || p.Category.Id == pagingParameters.CategoryId).Skip(pagingParameters.PageIndex*pagingParameters.PageSize).Take(pagingParameters.PageSize).ToListAsync();
         }
 
         public async Task<Product> Get(int id)

@@ -1,6 +1,7 @@
 using NetMPA.Carting.Dal.Interfaces;
 using NetMPA.Carting.Dal.Models;
 using NetMPA.Carting.Dal.Repositories;
+using NUnit.Framework;
 
 namespace NetMPA.Carting.Dal.Tests
 {

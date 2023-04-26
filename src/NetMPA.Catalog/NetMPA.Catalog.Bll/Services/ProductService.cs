@@ -1,6 +1,7 @@
 ﻿using NetMPA.Catalog.Bll.Interfaces.Repositories;
 using NetMPA.Catalog.Bll.Interfaces.Services;
 using NetMPA.Catalog.Bll.Models;
+using NetMPA.Catalog.Bll.Models.RequestParams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,26 +22,39 @@ namespace NetMPA.Catalog.Bll.Services
 
         public Task Add(Product product)
         {
+            if (product == null) throw new ArgumentNullException();
+            if (string.IsNullOrEmpty(product.Name)) throw new ArgumentException("Name is required");
+            if (product.Name.Length > 50) throw new ArgumentException("The Name value cannot exceed 50 characters.");
+
             return this.productRepository.Add(product);
         }
 
         public Task Delete(int productId)
         {
+            if (productId <= 0) throw new ArgumentException("Id is required");
+
             return this.productRepository.Delete(productId);
         }
 
         public Task<Product> Get(int productId)
         {
+            if (productId <= 0) throw new ArgumentException("Id is required");
+
             return this.productRepository.Get(productId);
         }
 
-        public Task<IEnumerable<Product>> List()
+        public Task<IEnumerable<Product>> List(PagingProductsParameters pagingParameters)
         {
-            return this.productRepository.GetAll();
+            return this.productRepository.GetAll(pagingParameters);
         }
 
         public Task Update(Product product)
         {
+            if (product == null) throw new ArgumentNullException();
+            if (product.Id <= 0) throw new ArgumentException("Id is required");
+            if (string.IsNullOrEmpty(product.Name)) throw new ArgumentException("Name is required");
+            if (product.Name.Length > 50) throw new ArgumentException("The Name value cannot exceed 50 characters.");
+
             return this.productRepository.Update(product);
         }
     }
