@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Configuration;
+using NetMPA.Carting.Api.Configuration;
+using NetMPA.Carting.Bll.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +35,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
+builder.Services.ConfigureBll();
+builder.Services.ConfigureDal();
+
+var configuration = builder.Configuration;
+builder.Services.ConfigureMassTransit(configuration);
 
 var app = builder.Build();
 

@@ -17,8 +17,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddControllers();
-
 builder.Services.AddApiVersioning(setup =>
 {
     setup.DefaultApiVersion = new ApiVersion(1, 0);
