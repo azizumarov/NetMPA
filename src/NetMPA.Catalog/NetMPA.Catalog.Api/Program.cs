@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
+using NetMPA.Catalog.Api.Configuration;
 using NetMPA.Catalog.Api.Controllers.Mappers;
 using NetMPA.Catalog.Bll.Configuration;
 using NetMPA.Catalog.Dal.Configuration;
@@ -46,6 +47,8 @@ var configuration = builder.Configuration;
 
 builder.Services.ConfigureBll();
 builder.Services.ConfigureDal(configuration);
+builder.Services.ConfigureMassTransit(configuration);
+
 
 var config = new MapperConfiguration(cfg =>
 {

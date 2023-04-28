@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using NetMPA.Catalog.Api.Controllers.Requests;
+using NetMPA.Catalog.Api.Messages;
 using NetMPA.Catalog.Api.Models;
 using NetMPA.Catalog.Bll.Interfaces.Services;
 using NetMPA.Catalog.Bll.Models.RequestParams;
@@ -20,15 +21,15 @@ namespace NetMPA.Catalog.Api.Controllers
     {
         private readonly ILogger<ProductController> logger;
         private readonly ICategoryService categoryService;
-        private readonly IProductService productService;
         private readonly IMapper mapper;
+        private readonly IBus bus;
 
-        public CategoryController(ICategoryService categoryService, IProductService productService,IMapper mapper, ILogger<ProductController> logger)
+        public CategoryController(ICategoryService categoryService, IMapper mapper, ILogger<ProductController> logger, IBus bus)
         {
             this.logger = logger;
-            this.categoryService = categoryService;
-            this.productService = productService;
+            this.categoryService = categoryService;            
             this.mapper = mapper;
+            this.bus = bus;
         }
 
         /// <summary>
@@ -44,8 +45,8 @@ namespace NetMPA.Catalog.Api.Controllers
                 pagedRequest.PageSize = pagedRequest.PageSize ?? 25;
             }
 
-            var result = await this.categoryService.List(mapper.Map<PagingParameters>(pagedRequest));
-            
+            var result = await this.categoryService.List(mapper.Map<PagingParameters>(pagedRequest));            
+
             return Ok(result.Select(this.mapper.Map<Category>));
         }
 
@@ -72,7 +73,9 @@ namespace NetMPA.Catalog.Api.Controllers
         {
             if (category == null) return BadRequest();
 
-            await this.categoryService.Update(mapper.Map<Bll.Models.Category>(category));
+            await this.categoryService.Add(mapper.Map<Bll.Models.Category>(category));
+            
+            await this.bus.Publish<CategoryAdd>(category);
 
             return StatusCode(201);
         }
@@ -80,14 +83,16 @@ namespace NetMPA.Catalog.Api.Controllers
         /// <summary>
         /// Update Category
         /// </summary>
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> UpdateCategory([FromRoute] int categoryId, [FromBody] CategoryAdd category)
+        public async Task<ActionResult> UpdateCategory([FromBody] Category category)
         {
             if (category == null) return BadRequest();
 
             await this.categoryService.Update(mapper.Map<Bll.Models.Category>(category));
+
+            await this.bus.Publish<Category>(category);
 
             return Ok();
         }
@@ -103,6 +108,8 @@ namespace NetMPA.Catalog.Api.Controllers
             if (categoryId <= 0) return BadRequest();
 
             await this.categoryService.Delete(categoryId);
+
+            await this.bus.Publish<DeleteCategoryMessage>(new DeleteCategoryMessage { Id = categoryId});
 
             return Ok();
         }
