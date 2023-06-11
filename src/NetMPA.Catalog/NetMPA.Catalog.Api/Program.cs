@@ -2,9 +2,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.Extensions.DependencyInjection;
 using NetMPA.Catalog.Api.Configuration;
 using NetMPA.Catalog.Api.Controllers.Mappers;
 using NetMPA.Catalog.Bll.Configuration;
@@ -85,8 +82,8 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-using var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope();
-using var context = serviceScope.ServiceProvider.GetRequiredService<CatalogContext>();
+using var serviceScope = app.Services.GetService<IServiceScopeFactory>()?.CreateScope();
+using var context = serviceScope?.ServiceProvider.GetRequiredService<CatalogContext>();
 
 
 app.Run();

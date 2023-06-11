@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\NetMPA.Messaging.Dto\NetMPA.Messaging.Dto.csproj" />
     <ProjectReference Include="..\NetMPA.Catalog.Bll\NetMPA.Catalog.Bll.csproj" />
     <ProjectReference Include="..\NetMPA.Catalog.Dal\NetMPA.Catalog.Dal.csproj" />
   </ItemGroup>

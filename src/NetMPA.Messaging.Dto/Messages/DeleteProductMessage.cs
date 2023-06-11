@@ -1,4 +1,4 @@
-﻿namespace NetMPA.Catalog.Api.Messages
+﻿namespace NetMPA.Messages.Dto
 {
     public class DeleteProductMessage
     {

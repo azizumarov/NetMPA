@@ -1,4 +1,4 @@
-﻿namespace NetMPA.Carting.Api.Messages
+﻿namespace NetMPA.Messages.Dto
 {
     public class DeleteCategoryMessage
     {

@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\NetMPA.Messaging.Dto\NetMPA.Messaging.Dto.csproj" />
     <ProjectReference Include="..\NetMPA.Carting.Bll\NetMPA.Carting.Bll.csproj" />
     <ProjectReference Include="..\NetMPA.Carting.Dal\NetMPA.Carting.Dal.csproj" />
   </ItemGroup>

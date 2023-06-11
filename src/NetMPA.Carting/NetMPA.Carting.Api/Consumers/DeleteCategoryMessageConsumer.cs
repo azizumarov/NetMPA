@@ -1,7 +1,6 @@
 ﻿using MassTransit;
-using NetMPA.Carting.Api.Messages;
+using NetMPA.Messages.Dto;
 using NetMPA.Carting.Bll.Interfaces;
-using NetMPA.Carting.Bll.Services;
 
 namespace NetMPA.Carting.Api.Consumers
 {

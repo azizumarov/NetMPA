@@ -2,10 +2,11 @@
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using NetMPA.Catalog.Api.Controllers.Requests;
-using NetMPA.Catalog.Api.Messages;
 using NetMPA.Catalog.Api.Models;
 using NetMPA.Catalog.Bll.Interfaces.Services;
 using NetMPA.Catalog.Bll.Models.RequestParams;
+using NetMPA.Messages.Dto;
+
 //using NetMPA.Catalog.Bll.Models;
 
 namespace NetMPA.Catalog.Api.Controllers
@@ -109,7 +110,7 @@ namespace NetMPA.Catalog.Api.Controllers
 
             await this.categoryService.Delete(categoryId);
 
-            await this.bus.Publish<DeleteCategoryMessage>(new DeleteCategoryMessage { Id = categoryId});
+            await this.bus.Publish(new DeleteCategoryMessage(){ Id = categoryId});
 
             return Ok();
         }
