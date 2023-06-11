@@ -15,7 +15,7 @@ namespace NetMPA.Carting.Bll.Tests
         [SetUp]
         public void Setup()
         {
-            var cartRepository = new Mock<ICartRepository>();
+                                                  var cartRepository = new Mock<ICartRepository>();
 
             cartRepository
                 .Setup(x => x.Get(It.IsAny<Guid>()))
