@@ -44,8 +44,7 @@ namespace NetMPA.Carting.Api.Configuration
 
                 
                 c.AddConsumer<DeleteProductMessageConsumer>();
-
-                c.AddConsumer<DeleteProductMessageConsumer>();
+                c.AddConsumer<DeleteCategoryMessageConsumer>();
 
                 
             });
