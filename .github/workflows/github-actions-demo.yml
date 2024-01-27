@@ -1,0 +1,8 @@
+name: GitHub Actions demo
+on: [push]
+jobs: 
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The Job run automatically a ${{ github.event_name }} event."
+      - uses: actions/checkout@v2
